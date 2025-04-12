@@ -102,4 +102,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - Recipe inspired by classic banana bread recipes
-- UI design inspired by Airbnb, Uber, and Angry Birds 
+- UI design inspired by Airbnb, Uber, and Angry Birds # Banana Bread Baking App
