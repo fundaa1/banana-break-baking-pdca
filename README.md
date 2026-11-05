@@ -1,5 +1,7 @@
 # Banana Bread Baking Interactive Web App
 
+Workshop status, maintenance and agent handoff: [WORKSHOP-HANDOFF.md](WORKSHOP-HANDOFF.md).
+
 An interactive web application that guides users through the process of baking banana bread with step-by-step instructions, animations, educational content, and progress tracking.
 
 ## Features
