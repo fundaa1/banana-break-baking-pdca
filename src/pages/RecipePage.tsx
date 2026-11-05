@@ -14,26 +14,32 @@ const RecipePage: React.FC = () => {
     currentStepIndex, 
     nextStep, 
     previousStep, 
-    saveProgress 
+    saveProgress,
+    userProgress,
+    setCurrentStepIndex
   } = useRecipe();
 
-  // Find the recipe by ID when the component mounts
   useEffect(() => {
     const recipe = recipes.find(r => r.id === recipeId);
-    if (recipe) {
-      setCurrentRecipe(recipe);
-    } else {
-      // Redirect if recipe not found
+    if (!recipe) {
       navigate('/');
+      return;
     }
-    
-    // Save progress when component unmounts
-    return () => {
-      saveProgress();
-    };
-  }, [recipeId, setCurrentRecipe, navigate, saveProgress]);
+    setCurrentRecipe(recipe);
+    const saved = userProgress[recipe.id];
+    setCurrentStepIndex(Number.isInteger(saved) && saved >= 0
+      ? Math.min(saved, recipe.steps.length - 1) : 0);
+    // Restore only when the route changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipeId, setCurrentRecipe, setCurrentStepIndex, navigate]);
 
-  if (!currentRecipe) {
+  useEffect(() => {
+    if (currentRecipe?.id === recipeId) saveProgress();
+    // Save the current step as it changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRecipe, currentStepIndex, recipeId]);
+
+  if (!currentRecipe || currentRecipe.id !== recipeId) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-lg">Loading recipe...</p>
@@ -48,6 +54,7 @@ const RecipePage: React.FC = () => {
       <header className="mb-6">
         <div className="flex items-center mb-4">
           <button 
+            aria-label="Back to recipes"
             className="mr-4 text-gray-600" 
             onClick={() => navigate('/')}
           >

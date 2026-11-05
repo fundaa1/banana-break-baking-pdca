@@ -60,7 +60,14 @@ const RecipeContext = createContext<RecipeContextType>({
 export const RecipeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
-  const [userProgress, setUserProgress] = useState<{ [recipeId: string]: number }>({});
+  const [userProgress, setUserProgress] = useState<{ [recipeId: string]: number }>(() => {
+    try {
+      const value = JSON.parse(localStorage.getItem('recipeProgress') || '{}');
+      return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+    } catch {
+      return {};
+    }
+  });
   const [useMetricMeasurements, setUseMetricMeasurements] = useState<boolean>(false);
 
   const nextStep = () => {
@@ -80,18 +87,20 @@ export const RecipeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   };
 
   const saveProgress = () => {
-    if (currentRecipe) {
-      setUserProgress({
-        ...userProgress,
-        [currentRecipe.id]: Math.max(currentStepIndex, userProgress[currentRecipe.id] || 0)
-      });
-      
-      // Here you would also save to Firebase or localStorage
-      localStorage.setItem('recipeProgress', JSON.stringify({
-        ...userProgress,
-        [currentRecipe.id]: Math.max(currentStepIndex, userProgress[currentRecipe.id] || 0)
-      }));
-    }
+    if (!currentRecipe) return;
+    setUserProgress(previous => {
+      const saved = previous[currentRecipe.id];
+      const progress = {
+        ...previous,
+        [currentRecipe.id]: Math.max(currentStepIndex, Number.isInteger(saved) && saved >= 0 ? saved : 0)
+      };
+      try {
+        localStorage.setItem('recipeProgress', JSON.stringify(progress));
+      } catch {
+        // Continue in memory when storage is unavailable.
+      }
+      return progress;
+    });
   };
 
   return (
