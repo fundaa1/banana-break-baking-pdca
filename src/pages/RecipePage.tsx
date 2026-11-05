@@ -80,6 +80,20 @@ const RecipePage: React.FC = () => {
         </div>
       </header>
       
+      <details className="bg-white rounded-xl p-4 mb-6">
+        <summary className="font-bold cursor-pointer">Ingredients ({currentRecipe.ingredients.length})</summary>
+        <ul className="mt-3 space-y-2">
+          {currentRecipe.ingredients.map(ingredient => (
+            <li key={ingredient.name}>
+              <label>
+                <input type="checkbox" className="mr-2" />
+                {ingredient.amountMetric || ingredient.amount} {ingredient.unitMetric || ingredient.unit} {ingredient.name}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </details>
+
       <motion.div
         key={currentStep.id}
         initial={{ opacity: 0, x: 20 }}

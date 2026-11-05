@@ -14,7 +14,7 @@ Add a collapsible checklist covering all eight ingredients with metric quantitie
 
 - Ingredient data coverage is 8 of 8 (100%), an increase of 100 percentage points over the zero baseline. This measures feature coverage, not a measured increase in user success or speed.
 - Production build passed with npm run build. The development server compiled successfully.
-- Browser walkthrough is pending: the automation browser timed out connecting to the local server.
+- Browser verified on port 3010: the ingredient list shows eight items, Next reaches step 2, and reload restores step 2. Commissioner acceptance is pending.
 
 ## Act
 
@@ -26,7 +26,7 @@ The recipe view lists every ingredient in recipe data. Checkboxes are temporary.
 
 ## Train
 
-Run npm install followed by npm start. Open http://localhost:3000 on the same computer. Select the recipe, expand Ingredients, check an item, advance to step 3, return home and reopen, then refresh. The list should contain eight items and step 3 should be restored. Checkbox selections reset on page reload.
+Run npm install followed by npm start. Open the local URL printed by the server on the same computer. Select the recipe, expand Ingredients, check an item, advance to step 3, return home and reopen, then refresh. The list should contain eight items and step 3 should be restored. Checkbox selections reset on page reload.
 
 ## Enforce
 
