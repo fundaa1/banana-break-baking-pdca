@@ -155,4 +155,4 @@ const StepCard: React.FC<StepCardProps> = ({
   );
 };
 
-export default StepCard; 
+export default StepCard;

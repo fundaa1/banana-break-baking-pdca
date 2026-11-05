@@ -117,4 +117,4 @@ const RecipePage: React.FC = () => {
   );
 };
 
-export default RecipePage; 
+export default RecipePage;
