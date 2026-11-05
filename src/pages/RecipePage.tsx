@@ -103,6 +103,7 @@ const RecipePage: React.FC = () => {
         className="flex justify-center"
       >
         <StepCard
+          recipeId={currentRecipe.id}
           stepNumber={currentStep.id}
           title={currentStep.title}
           instructions={currentStep.instructions}

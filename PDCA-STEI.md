@@ -42,8 +42,20 @@ Record actual reviewer outcomes. A claim of 15% better completion or time requir
 - Do: add a deadline-based countdown with start, pause, resume, reset, and a completion message.
 - Check: browser verification on the bake step confirmed countdown from 55:00, pause at 54:57, and reset to 55:00. Full-duration completion was not observed.
 - Act: commissioner can review both timed steps and request changes.
-- Standardise: each timer lasts for its configured duration and resets when leaving the step or refreshing. Completion is displayed on the page. It does not send a background notification.
-- Train: on Bake, choose Start Timer, Pause Timer, Resume Timer or Reset Timer. Keep the recipe step open while timing.
+- Standardise: each timer lasts for its configured duration and is saved by recipe and step in browser storage. Completion is displayed on the page. It does not send a background notification.
+- Train: on Bake, choose Start Timer, Pause Timer, Resume Timer or Reset Timer. Return to the timed step to see its current status.
 - Enforce: require a production build and browser walkthrough before acceptance.
-- Improve: consider a persistent timer and optional alert after commissioner feedback.
+- Improve: consider an optional alert after commissioner feedback.
 - Work: Codex implemented and verified this change. No work was delegated. The commissioner owns acceptance.
+
+## Timer persistence cycle
+
+- Plan: preserve a running or paused timer when changing steps or refreshing.
+- Do: store each recipe step timer locally with its deadline or paused time. Separate timed steps retain independent timers.
+- Check: production build passed. In the browser, the bake countdown continued after visiting the cooling step and after refresh. Reset restored 55:00. A full-length completion was not observed.
+- Act: commissioner reviews the timer flow and records feedback.
+- Standardise: timer state is local to the browser. An expired timer displays its finished message on return. If storage is unavailable, the timer runs only while the step stays open.
+- Train: start Bake, visit Cool, then return or refresh. Return to the timed step to check completion.
+- Enforce: run the build and repeat the browser walkthrough before acceptance.
+- Improve: evaluate optional notifications with the commissioner. The timer does not issue background alerts.
+- Work: Codex implemented and verified the change. No work was delegated. Commissioner acceptance remains pending.
