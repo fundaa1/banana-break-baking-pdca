@@ -34,4 +34,16 @@ Require a successful production build and a recorded browser walkthrough for acc
 
 ## Improve
 
-Record actual reviewer outcomes. A claim of 15% better completion or time requires an agreed baseline and comparable user observations. Existing upstream image paths refer to assets absent from the repository and the timer button remains a placeholder.
+Record actual reviewer outcomes. A claim of 15% better completion or time requires an agreed baseline and comparable user observations. Existing upstream image paths refer to assets absent from the repository.
+
+## Timer improvement cycle
+
+- Plan: make the existing bake and cool timer controls usable.
+- Do: add a deadline-based countdown with start, pause, resume, reset, and a completion message.
+- Check: browser verification on the bake step confirmed countdown from 55:00, pause at 54:57, and reset to 55:00. Full-duration completion was not observed.
+- Act: commissioner can review both timed steps and request changes.
+- Standardise: each timer lasts for its configured duration and resets when leaving the step or refreshing. Completion is displayed on the page. It does not send a background notification.
+- Train: on Bake, choose Start Timer, Pause Timer, Resume Timer or Reset Timer. Keep the recipe step open while timing.
+- Enforce: require a production build and browser walkthrough before acceptance.
+- Improve: consider a persistent timer and optional alert after commissioner feedback.
+- Work: Codex implemented and verified this change. No work was delegated. The commissioner owns acceptance.
